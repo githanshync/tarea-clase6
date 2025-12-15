@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-deployment
+  labels:
+    app: webapp
+    env: homework
+    version: v1.0
+    tier: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+        env: homework
+        version: v1.0
+        tier: frontend
+    spec:
+      containers:
+      - name: webapp
+        image: webapp-html:1.0
+        ports:
+        - containerPort: 80
