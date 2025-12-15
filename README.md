@@ -1,66 +1,105 @@
-🚀 Kubernetes - Clase 6: Introducción
-Este repositorio contiene la solución a la tarea de casa del curso Docker & Kubernetes BUSA.
+# Aplicación web para la Clase 6 de Docker Kubernetes
 
-📌 Objetivo de la tarea
-Desplegar una aplicación web en Kubernetes.
+**Curso:** Docker & Kubernetes - Clase 6
 
-Usar un Deployment con 3 réplicas.
+**Estudiante:** Hans Nava
 
-Exponer la aplicación mediante un Service tipo NodePort en el puerto 30200.
+Corresponde al repositorio para la tarea de casa del curso Docker & Kubernetes para la clase 6.
+Se despliega una aplicacion web básica en Kubernetes.
 
-Documentar el proceso con capturas y pruebas de escalado/auto-healing.
+## Stack.
 
-🛠️ Archivos principales
-deployment.yaml → define el Deployment con 3 réplicas de Nginx.
+- **Aplicación:** Nginx
+- **Kubernetes:** minikube
+- **Réplicas:** 3
 
-service.yaml → expone la aplicación vía NodePort.
+### Objetivo de la tarea
+- Desplegar una aplicación web en Kubernetes.
+- Usar un Deployment con 3 réplicas.
+- Exponer la aplicación mediante un Service tipo NodePort en el puerto 30200.
 
-screenshots/ → evidencia del despliegue, escalado y acceso web.
+### Archivos principales
+- deployment.yaml -> define el Deployment con 3 réplicas de Nginx.
+- service.yaml -> expone la aplicación vía NodePort.
+- screenshots/ -> del despliegue, escalado y acceso web.
+
+## Ejecución
 
 Pasos para ejecutar
-Clonar este repositorio:
+1. Clonar este repositorio:
 
-bash
-git clone https://github.com/<tu-usuario>/<tu-repo>.git
-cd <tu-repo>
+```bash
+git clone https://github.com/githanshync/tarea-clase6.git
+cd tarea-clase6
+```
 
-Aplicar los manifiestos:
+2. Aplicar los manifiestos:
 
-bash
+```bash
 kubectl apply -f deployment.yaml
 kubectl apply -f service.yaml
-Verificar recursos:
+```
+3. Verificar recursos:
 
-bash
+```bash
 kubectl get all
-Acceder a la aplicación:
+```
+4. Acceder a la aplicación:
 
-bash
+```bash
 minikube service webapp-service --url
 O abrir en navegador: http://<IP>:30200
+```
+5. Cómo probar.
 
-🔄 Escalado y Auto-healing
+- Ver recursos:
+```bash
+kubectl get all
+```
+- Acceder web:
+```bash
+http://<IP>:30200
+```
+- Escalado y Auto-healing
 Escalar a 5 réplicas:
 
-bash
+```bash
 kubectl scale deployment webapp-deployment --replicas=5
 kubectl get pods
-Eliminar un pod y observar cómo Kubernetes lo recrea:
+```
+## Capturas de pantalla
 
-bash
+### Recursos desplegados
+![kubectl get all](screenshots/kubectl_get_all.png)
+
+### kubectl describe deployment webapp-deployment
+![kubectl describe](screenshots/kubectl_describe_deployment_webapp-deployment.png)
+
+### Aplicación funcionando
+![webapp](screenshots/app-funcionando.png)
+
+![pods](screenshots/kubectl_get_pods.png)
+
+
+### Escalado a 5 réplicas
+![scaling](screenshots/kubectl_get_pods_5replicas.png)
+
+### Eliminar un pod y observar cómo Kubernetes lo recrea:
+
+```bash
 kubectl delete pod <nombre-pod>
 kubectl get pods -w
-📸 Evidencias
-screenshots/resources.png → salida de kubectl get all.
+```
+![after delete](screenshots/despues_del_delete_pod.png)
 
-screenshots/webapp.png → aplicación corriendo en navegador.
+### Ver logs
 
-screenshots/scaling.png → escalado a 5 réplicas.
+![logs](screenshots/kubectl_logs_pod.png)
 
-screenshots/autohealing.png → recreación automática de un pod eliminado.
-✅ Conclusiones
-Se desplegó correctamente una aplicación web en Kubernetes con 3 réplicas.
+## Conceptos Kubernetes
 
-El Service tipo NodePort permitió acceso externo en el puerto 30200.
-
-Se comprobó el escalado manual y el auto-healing de pods.
+- Deployment con 3 réplicas
+- Service tipo NodePort
+- Labels y selectors
+- Auto-healing
+- Escalado horizontal
